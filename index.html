@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
-<title>Diana &amp; Richard | We're Getting Married</title>
+<title>Aashin &amp; Akif | We're Getting Married</title>
 <meta name="description" content="Join us to celebrate our wedding">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -16,7 +16,7 @@
 <div id="envelope-overlay" aria-hidden="false">
   <div class="envelope-scene">
     <div class="envelope" id="envelope">
-      <div class="envelope-back"></div>
+      <div class="envelope-back"><div class="paper-grain"></div></div>
 
       <div class="envelope-letter" id="envelopeLetter">
         <div class="letter-face">
@@ -32,9 +32,23 @@
 
       <button class="wax-seal" id="waxSeal" aria-label="Open invitation">
         <svg viewBox="0 0 100 100" class="wax-seal-svg">
-          <circle cx="50" cy="50" r="46" class="seal-ring-outer"></circle>
-          <circle cx="50" cy="50" r="38" class="seal-ring-inner"></circle>
-          <text x="50" y="62" text-anchor="middle" class="seal-monogram">D&amp;R</text>
+          <defs>
+            <radialGradient id="waxGradient" cx="36%" cy="28%" r="80%">
+              <stop offset="0%" style="stop-color:var(--wax-light)"/>
+              <stop offset="55%" style="stop-color:var(--wax)"/>
+              <stop offset="100%" style="stop-color:var(--wax-deep)"/>
+            </radialGradient>
+            <filter id="waxWobble" x="-20%" y="-20%" width="140%" height="140%">
+              <feTurbulence type="fractalNoise" baseFrequency="0.045" numOctaves="2" seed="4" result="n"></feTurbulence>
+              <feDisplacementMap in="SourceGraphic" in2="n" scale="5"></feDisplacementMap>
+            </filter>
+          </defs>
+          <g filter="url(#waxWobble)">
+            <circle cx="50" cy="50" r="46" fill="url(#waxGradient)"></circle>
+            <circle cx="50" cy="50" r="38" class="seal-ring-inner"></circle>
+          </g>
+          <ellipse cx="33" cy="28" rx="15" ry="8" class="seal-shine"></ellipse>
+          <text x="50" y="60" text-anchor="middle" class="seal-monogram">A&amp;A</text>
         </svg>
       </button>
     </div>
@@ -42,18 +56,18 @@
   </div>
 </div>
 
+<!-- ===================== AMBIENT GARDEN LAYER ===================== -->
+<div class="garden-border garden-border--left" aria-hidden="true"></div>
+<div class="garden-border garden-border--right" aria-hidden="true"></div>
+<div id="fx-layer" aria-hidden="true"></div>
+
 <!-- ===================== SVG MOTIF LIBRARY ===================== -->
 <svg width="0" height="0" style="position:absolute" aria-hidden="true">
   <defs>
-    <g id="motif-arch">
-      <path d="M10 260 C 10 120, 60 20, 150 20 C 240 20, 290 120, 290 260" class="motif-stroke motif-stroke--thick"/>
-      <path d="M10 260 C 10 140, 55 45, 150 45 C 245 45, 290 140, 290 260" class="motif-stroke"/>
-      <g class="motif-leaf-cluster">
-        <circle cx="16" cy="120" r="4"/><circle cx="26" cy="105" r="3"/><circle cx="8" cy="140" r="3"/>
-        <circle cx="284" cy="120" r="4"/><circle cx="274" cy="105" r="3"/><circle cx="292" cy="140" r="3"/>
-        <circle cx="60" cy="40" r="3.5"/><circle cx="240" cy="40" r="3.5"/>
-        <circle cx="150" cy="14" r="4"/><circle cx="130" cy="18" r="2.6"/><circle cx="170" cy="18" r="2.6"/>
-      </g>
+    <g id="motif-butterfly">
+      <path d="M30 20 C 16 0, 0 4, 8 20 C 0 36, 16 40, 30 20 Z" class="wing wing-left"></path>
+      <path d="M30 20 C 44 0, 60 4, 52 20 C 60 36, 44 40, 30 20 Z" class="wing wing-right"></path>
+      <rect x="28" y="8" width="4" height="24" rx="2" class="butterfly-body"></rect>
     </g>
 
     <g id="motif-pillar">
@@ -61,21 +75,70 @@
       <rect x="6" y="0" width="34" height="10" class="motif-stroke"/>
       <rect x="10" y="230" width="26" height="8" class="motif-stroke"/>
       <path d="M2 60 q20 -10 0 -30 M44 90 q-20 -10 0 -30 M2 140 q20 -10 0 -30 M44 170 q-20 -10 0 -30" class="motif-stroke motif-vine"/>
-      <circle cx="4" cy="55" r="2.4" class="motif-vine"/>
+      <circle cx="4" cy="55" r="2.6" class="motif-rose"/>
       <circle cx="42" cy="85" r="2.4" class="motif-vine"/>
-      <circle cx="4" cy="135" r="2.4" class="motif-vine"/>
+      <circle cx="4" cy="135" r="2.6" class="motif-rose"/>
       <circle cx="42" cy="165" r="2.4" class="motif-vine"/>
     </g>
 
-    <g id="motif-building">
-      <rect x="20" y="60" width="160" height="70" class="motif-stroke"/>
-      <path d="M10 60 L100 20 L190 60" class="motif-stroke"/>
-      <rect x="90" y="90" width="20" height="40" class="motif-stroke"/>
-      <rect x="35" y="75" width="16" height="20" class="motif-stroke"/>
-      <rect x="65" y="75" width="16" height="20" class="motif-stroke"/>
-      <rect x="119" y="75" width="16" height="20" class="motif-stroke"/>
-      <rect x="149" y="75" width="16" height="20" class="motif-stroke"/>
-      <line x1="0" y1="130" x2="200" y2="130" class="motif-stroke"/>
+    <g id="motif-castle">
+      <!-- ground line -->
+      <line x1="8" y1="150" x2="232" y2="150" class="motif-stroke"/>
+
+      <!-- left tower -->
+      <rect x="42" y="80" width="28" height="70" class="motif-stroke"/>
+      <path d="M39 80 L56 52 L73 80 Z" class="motif-stroke"/>
+      <rect x="51" y="99" width="10" height="13" class="motif-stroke"/>
+      <path d="M51 99 A5 5 0 0 1 61 99" class="motif-stroke"/>
+
+      <!-- right tower -->
+      <rect x="170" y="80" width="28" height="70" class="motif-stroke"/>
+      <path d="M167 80 L184 52 L201 80 Z" class="motif-stroke"/>
+      <rect x="179" y="99" width="10" height="13" class="motif-stroke"/>
+      <path d="M179 99 A5 5 0 0 1 189 99" class="motif-stroke"/>
+
+      <!-- central keep -->
+      <rect x="104" y="55" width="32" height="95" class="motif-stroke"/>
+      <path d="M100 55 L120 22 L140 55 Z" class="motif-stroke"/>
+      <line x1="120" y1="22" x2="120" y2="8" class="motif-stroke"/>
+      <path d="M120 8 L134 12 L120 16 Z" class="motif-stroke"/>
+      <rect x="112" y="76" width="16" height="15" class="motif-stroke"/>
+      <path d="M112 76 A8 8 0 0 1 128 76" class="motif-stroke"/>
+
+      <!-- connecting walls with crenellations -->
+      <rect x="70" y="110" width="34" height="40" class="motif-stroke"/>
+      <rect x="72" y="100" width="5" height="10" class="motif-stroke"/>
+      <rect x="80" y="100" width="5" height="10" class="motif-stroke"/>
+      <rect x="88" y="100" width="5" height="10" class="motif-stroke"/>
+      <rect x="96" y="100" width="5" height="10" class="motif-stroke"/>
+
+      <rect x="136" y="110" width="34" height="40" class="motif-stroke"/>
+      <rect x="138" y="100" width="5" height="10" class="motif-stroke"/>
+      <rect x="146" y="100" width="5" height="10" class="motif-stroke"/>
+      <rect x="154" y="100" width="5" height="10" class="motif-stroke"/>
+      <rect x="162" y="100" width="5" height="10" class="motif-stroke"/>
+
+      <!-- arched gate -->
+      <rect x="112" y="122" width="16" height="28" class="motif-stroke"/>
+      <path d="M112 122 A8 8 0 0 1 128 122" class="motif-stroke"/>
+
+      <!-- climbing rose vine on left tower -->
+      <path d="M42 148 C 34 132, 46 118, 38 104 C 32 92, 44 82, 40 68" class="motif-stroke motif-vine"/>
+      <circle cx="38" cy="130" r="2.4" class="motif-rose"/>
+      <circle cx="40" cy="102" r="2.2" class="motif-vine"/>
+      <circle cx="40" cy="82" r="2.4" class="motif-rose"/>
+
+      <!-- garden topiary shrubs flanking the castle -->
+      <line x1="20" y1="150" x2="20" y2="140" class="motif-stroke"/>
+      <circle cx="20" cy="134" r="9" class="motif-stroke"/>
+      <line x1="220" y1="150" x2="220" y2="140" class="motif-stroke"/>
+      <circle cx="220" cy="134" r="9" class="motif-stroke"/>
+
+      <!-- garden bed flowers along the ground -->
+      <circle cx="12" cy="150" r="2" class="motif-rose"/>
+      <circle cx="30" cy="150" r="2" class="motif-vine"/>
+      <circle cx="210" cy="150" r="2" class="motif-vine"/>
+      <circle cx="228" cy="150" r="2" class="motif-rose"/>
     </g>
 
     <g id="motif-curtain">
@@ -101,16 +164,16 @@
 
   <!-- HERO -->
   <section class="scene scene--hero" id="hero">
-    <div class="sky-gradient"></div>
-    <svg class="arch-motif" viewBox="0 0 300 260" preserveAspectRatio="xMidYMax meet" aria-hidden="true"><use href="#motif-arch"></use></svg>
+    <img class="hero-photo" src="images/hero-arch.png" alt="" aria-hidden="true">
+    <div class="hero-scrim"></div>
 
     <div class="hero-content reveal">
       <p class="eyebrow">We Are Getting Married</p>
-      <div class="monogram">D<span class="monogram-amp">&amp;</span>R</div>
+      <div class="monogram">A<span class="monogram-amp">&amp;</span>A</div>
       <h1 class="names">
-        <span class="name">Diana</span>
+        <span class="name">Aashin</span>
         <span class="amp">&amp;</span>
-        <span class="name">Richard</span>
+        <span class="name">Akif</span>
       </h1>
       <p class="request-line">request the pleasure of your company<br>to celebrate our wedding on</p>
       <div class="date-box">
@@ -129,7 +192,7 @@
     <svg class="pillar pillar--right" viewBox="0 0 50 240" preserveAspectRatio="xMidYMid meet" aria-hidden="true"><use href="#motif-pillar"></use></svg>
 
     <div class="invitation-content reveal">
-      <p class="script-names">Diana <span class="amp-small">&amp;</span> Richard</p>
+      <p class="script-names">Aashin <span class="amp-small">&amp;</span> Akif</p>
       <p class="body-copy">
         we request the pleasure of your company<br>
         to celebrate our wedding on
@@ -156,7 +219,7 @@
   <section class="scene scene--venue" id="venue">
     <div class="venue-content reveal">
       <p class="eyebrow eyebrow--dark">Wedding</p>
-      <svg class="building-motif" viewBox="0 0 200 130" aria-hidden="true"><use href="#motif-building"></use></svg>
+      <svg class="building-motif" viewBox="0 0 240 160" aria-hidden="true"><use href="#motif-castle"></use></svg>
       <p class="venue-script venue-script--lg">The Willowmere Estate</p>
       <p class="body-copy">142 Orchard Hollow Road, Willow Creek</p>
       <a class="map-link" href="https://www.google.com/maps/search/?api=1&query=Willowmere+Estate" target="_blank" rel="noopener">View on Map</a>
@@ -244,7 +307,7 @@
   <!-- FOOTER -->
   <footer class="scene scene--footer">
     <div class="footer-content reveal">
-      <div class="monogram monogram--sm">D<span class="monogram-amp">&amp;</span>R</div>
+      <div class="monogram monogram--sm">A<span class="monogram-amp">&amp;</span>A</div>
       <p class="footer-note">With love, we can't wait to celebrate with you.</p>
       <p class="footer-date">23 &middot; 07 &middot; 2026</p>
     </div>
