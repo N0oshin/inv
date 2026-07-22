@@ -3,6 +3,7 @@
 
   var overlay = document.getElementById("envelope-overlay");
   var envelope = document.getElementById("envelope");
+  var envelopeBody = document.getElementById("envelopeBody");
   var seal = document.getElementById("waxSeal");
 
   document.body.classList.add("locked");
@@ -18,10 +19,20 @@
       overlay.classList.add("opening");
     }, 350);
 
-    setTimeout(function () {
+    var revealed = false;
+    function reveal() {
+      if (revealed) return;
+      revealed = true;
       overlay.classList.add("opened");
       document.body.classList.remove("locked");
-    }, 1900);
+    }
+
+    // Reveal exactly when the envelope has actually finished sliding away,
+    // rather than guessing a fixed delay that can drift on slower devices.
+    envelopeBody.addEventListener("transitionend", function (e) {
+      if (e.propertyName === "transform") reveal();
+    });
+    setTimeout(reveal, 3200); // fallback in case transitionend never fires
   }
 
   seal.addEventListener("click", openInvitation);

@@ -189,12 +189,7 @@ a { color: inherit; }
   position: fixed;
   inset: 0;
   z-index: 500;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  background:
-    linear-gradient(160deg, rgba(74,63,53,0.35), rgba(74,63,53,0.55)),
-    url("../images/paper-texture.png") center / cover;
+  background: var(--cream, #f6f1e7);
   transition: opacity 0.9s ease, visibility 0.9s ease;
 }
 #envelope-overlay.opened {
@@ -204,72 +199,45 @@ a { color: inherit; }
 }
 
 .envelope-scene {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 28px;
-  perspective: 1400px;
+  position: relative;
+  width: 100%;
+  height: 100%;
+  height: 100dvh;
+  perspective: 180vh;
 }
 
 .envelope {
-  position: relative;
-  width: min(86vw, 340px);
-  height: min(86vw, 340px);
+  position: absolute;
+  inset: 0;
   transform-style: preserve-3d;
 }
 
-.envelope-back {
+/* The whole envelope photo. Anchored to the top so if the aspect ratio
+   doesn't exactly match the viewport, cover crops only from the bottom. */
+.envelope-body {
   position: absolute;
   inset: 0;
-  z-index: 1;
-  border-radius: 4px;
-  box-shadow: 0 30px 60px -20px rgba(50, 30, 15, 0.45);
-  background:
-    linear-gradient(160deg, rgba(255,251,242,0.15), rgba(163,121,60,0.35)),
-    url("../images/paper-texture.png") center / cover;
+  z-index: 3;
+  background: url("../images/envelope-cover.png") top / cover;
+  transition: transform 1s cubic-bezier(.6,.05,.2,1) 1.05s, box-shadow 1s ease 1.05s;
+}
+.envelope.opening .envelope-body {
+  transform: translateY(140%) scale(0.98);
+  box-shadow: 0 -20px 60px rgba(50,30,15,0.3);
 }
 
-.envelope-flap {
-  position: absolute;
-  z-index: 2;
-}
-
-.envelope-flap--left,
-.envelope-flap--right,
-.envelope-flap--bottom {
-  width: 0; height: 0;
-  background: none;
-  border-style: solid;
-}
-.envelope-flap--left {
-  top: 0; left: 0;
-  border-width: 50% 0 50% 50%;
-  border-color: transparent transparent transparent var(--champagne);
-  opacity: 0.92;
-}
-.envelope-flap--right {
-  top: 0; right: 0;
-  border-width: 50% 50% 50% 0;
-  border-color: transparent var(--champagne) transparent transparent;
-  opacity: 0.92;
-}
-.envelope-flap--bottom {
-  bottom: 0; left: 0;
-  border-width: 0 50% 50% 50%;
-  border-color: transparent transparent var(--gold) transparent;
-  opacity: 0.95;
-}
-
+/* Top flap: same photo, cropped to the triangle via clip-path so it lines
+   up with the crease already visible in the shot, then flips open first. */
 .envelope-flap--top {
+  position: absolute;
   top: 0; left: 0;
   width: 100%; height: 100%;
-  clip-path: polygon(0 0, 100% 0, 50% 55%);
-  background:
-    linear-gradient(200deg, rgba(255,251,242,0.1) 20%, rgba(161,121,60,0.55) 100%),
-    url("../images/paper-texture.png") center / cover;
+  clip-path: polygon(0 0, 100% 0, 50% 23.3%);
+  background: url("../images/envelope-cover.png") top / cover;
   transform-origin: top center;
   transform: rotateX(0deg);
-  transition: transform 1.1s cubic-bezier(.6,.05,.2,1);
+  backface-visibility: hidden;
+  transition: transform 1.1s cubic-bezier(.6,.05,.2,1) 0.35s;
   z-index: 6;
   box-shadow: 0 4px 14px rgba(50,30,15,0.25);
 }
@@ -277,74 +245,46 @@ a { color: inherit; }
   transform: rotateX(180deg);
 }
 
-.envelope-letter {
-  position: absolute;
-  left: 6%;
-  right: 6%;
-  bottom: 4%;
-  height: 88%;
-  background: var(--cream);
-  border-radius: 3px;
-  box-shadow: 0 8px 30px rgba(50,30,15,0.3);
-  z-index: 4;
-  display: flex;
-  align-items: flex-end;
-  justify-content: center;
-  padding: 12%;
-  padding-bottom: 16%;
-  transform: translateY(6%);
-  transition: transform 1.3s cubic-bezier(.2,.7,.3,1) 0.15s;
-}
-.envelope.opening .envelope-letter {
-  transform: translateY(-38%);
-}
-
-.letter-face { text-align: center; }
-.letter-script {
-  font-family: var(--script);
-  font-size: clamp(1.4rem, 5vw, 1.9rem);
-  color: var(--ink);
-  line-height: 1.5;
-  margin: 0;
-}
-
+/* Sits directly over the rose button in the photo; the rose itself is the
+   visual, this is just the tap target plus a soft "press" affordance. */
 .wax-seal {
   position: absolute;
-  top: 50%;
+  top: 23.3%;
   left: 50%;
   transform: translate(-50%, -50%);
   width: 76px;
   height: 76px;
+  border-radius: 50%;
   border: none;
   background: none;
   padding: 0;
   cursor: pointer;
   z-index: 10;
-  transition: transform 0.5s ease, opacity 0.5s ease;
-  filter: drop-shadow(0 8px 12px rgba(40,20,10,0.5));
+  transition: transform 0.5s ease, opacity 0.5s ease, box-shadow 0.3s ease;
 }
-.wax-seal:hover { transform: translate(-50%, -50%) scale(1.05); }
+.wax-seal:hover {
+  transform: translate(-50%, -50%) scale(1.05);
+  box-shadow: 0 0 0 8px rgba(255,251,242,0.15);
+}
 .wax-seal.breaking {
   transform: translate(-50%, -50%) scale(1.5) rotate(8deg);
   opacity: 0;
 }
 
-.seal-ring-inner { fill: none; stroke: var(--wax-deep); stroke-width: 1; opacity: 0.55; }
-.seal-shine { fill: var(--cream); opacity: 0.22; mix-blend-mode: screen; }
-.seal-monogram {
-  font-family: var(--script);
-  font-size: 30px;
-  fill: var(--cream);
-  opacity: 0.95;
-}
-
 .tap-hint {
+  position: absolute;
+  left: 50%;
+  bottom: 8%;
+  transform: translateX(-50%);
+  z-index: 10;
   font-family: var(--caps);
   font-size: 0.7rem;
   letter-spacing: 0.3em;
   text-transform: uppercase;
-  color: var(--cream);
+  color: var(--ink);
+  text-shadow: 0 1px 8px rgba(255,255,255,0.6);
   animation: pulse 2.4s ease-in-out infinite;
+  transition: opacity 0.4s ease;
 }
 #envelope-overlay.opening .tap-hint { opacity: 0; }
 

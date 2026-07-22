@@ -1,0 +1,14 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(node envelope_test.js)",
+      "Bash(node envelope_test2.js)",
+      "Bash(node envelope_fullbleed.js)",
+      "Bash(python -c ' *)",
+      "mcp__claude_ai_Adobe_for_creativity__asset_initialize_file_upload",
+      "Bash(curl -s -X PUT --data-binary @/c/inv/images/envelope-cover.jpg -H \"Content-Type: image/jpeg\" \"https://at.adobe.com/dij6JrS7bq6nxG6K\" -o /dev/null -w \"HTTP_STATUS:%{http_code}\\\\n\")",
+      "Bash(curl -s -D - -X PUT --data-binary @/c/inv/images/envelope-cover.jpg -H \"Content-Type: image/jpeg\" \"https://at.adobe.com/dij6JrS7bq6nxG6K\" -o /tmp/put_body.txt)",
+      "Read(//tmp/**)"
+    ]
+  }
+}
