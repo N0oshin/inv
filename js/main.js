@@ -17,6 +17,13 @@
       overlay.classList.add("opened");
       document.body.classList.remove("locked");
     }, 350);
+
+    var music = document.getElementById("bgMusic");
+    if (music) {
+      music.play().catch(function (err) {
+        console.warn("Audio playback failed:", err);
+      });
+    }
   }
 
   overlay.addEventListener("click", openInvitation);
