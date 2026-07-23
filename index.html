@@ -198,9 +198,9 @@
   <!-- RSVP -->
   <section class="scene scene--rsvp" id="rsvp">
     <div class="rsvp-content reveal">
-      <p class="body-copy">We can't wait to celebrate with you.</p>
+      <p class="body-copy" id="rsvpIntro">We can't wait to celebrate with you.</p>
 
-      <form class="rsvp-form" name="rsvp" method="POST" data-netlify="true" netlify-honeypot="bot-field">
+      <form class="rsvp-form" id="rsvpForm" name="rsvp" method="POST" data-netlify="true" netlify-honeypot="bot-field">
         <input type="hidden" name="form-name" value="rsvp">
         <p class="hidden-field"><label>Don't fill this out: <input name="bot-field"></label></p>
 
@@ -218,6 +218,11 @@
 
         <button type="submit" class="submit-btn">Send </button>
       </form>
+
+      <div class="rsvp-thanks" id="rsvpThanks" hidden>
+        <p class="venue-script venue-script--lg">Thank You</p>
+        <p class="body-copy">We can't wait to celebrate with you.</p>
+      </div>
     </div>
   </section>
 
@@ -249,7 +254,7 @@
             <span class="countdown-label">Secs</span>
           </div>
         </div>
-        <p class="countdown-caption">until we say &ldquo;I do&rdquo; &mdash; kindly reply soon</p>
+
       </div>
     </div>
   </footer>

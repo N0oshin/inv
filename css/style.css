@@ -642,6 +642,16 @@ a { color: inherit; }
   margin: 4px 0 22px;
 }
 
+.rsvp-thanks {
+  padding: 20px 0 6px;
+  animation: rsvp-thanks-in 0.8s ease both;
+}
+.rsvp-thanks[hidden] { display: none; }
+@keyframes rsvp-thanks-in {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
 .rsvp-form {
   display: flex;
   flex-direction: column;

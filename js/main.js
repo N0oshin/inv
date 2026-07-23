@@ -21,6 +21,33 @@
 
   overlay.addEventListener("click", openInvitation);
 
+  // ================= RSVP form: submit without leaving the page =================
+  var rsvpForm = document.getElementById("rsvpForm");
+  if (rsvpForm) {
+    rsvpForm.addEventListener("submit", function (e) {
+      e.preventDefault();
+
+      var submitBtn = rsvpForm.querySelector(".submit-btn");
+      if (submitBtn) submitBtn.disabled = true;
+
+      var body = new URLSearchParams(new FormData(rsvpForm)).toString();
+
+      fetch(rsvpForm.action || window.location.pathname, {
+        method: "POST",
+        headers: { "Content-Type": "application/x-www-form-urlencoded" },
+        body: body
+      }).catch(function (err) {
+        console.warn("RSVP submission request failed:", err);
+      }).finally(function () {
+        rsvpForm.hidden = true;
+        var intro = document.getElementById("rsvpIntro");
+        if (intro) intro.hidden = true;
+        var thanks = document.getElementById("rsvpThanks");
+        if (thanks) thanks.hidden = false;
+      });
+    });
+  }
+
   // Scroll-reveal for content sections
   var revealEls = document.querySelectorAll(".reveal");
   if ("IntersectionObserver" in window) {
