@@ -19,10 +19,11 @@
     <div class="envelope" id="envelope">
       <div class="envelope-body" id="envelopeBody"></div>
 
-      <div class="envelope-flap envelope-flap--top" id="envelopeTop"></div>
-
       <button class="wax-seal" id="waxSeal" aria-label="Open invitation"></button>
     </div>
+     <!-- <div class="envelope-flap envelope-flap--top" id="envelopeTop"> -->
+        <span class="envelope-date">2 &middot; 1 &middot; 2027</span>
+      <!-- </div> -->
     <p class="tap-hint">tap the seal to open</p>
   </div>
 </div>
@@ -178,12 +179,6 @@
       <p class="venue-script">The V P hall</p>
       <p class="body-copy">at six o'clock in the evening</p>
     </div>
-
-    <div class="terrace-scene" aria-hidden="true">
-      <svg viewBox="0 0 400 90" preserveAspectRatio="none" class="terrace-water">
-        <path d="M0 40 Q 100 30 200 40 T 400 40 V90 H0 Z" class="terrace-water-fill"/>
-      </svg>
-    </div>
   </section>
 
   <!-- VENUE + MAP -->
@@ -211,31 +206,17 @@
 
         <label class="field">
           <span>Name</span>
-          <input type="text" name="name" required>
+          <input type="text" name="name">
         </label>
+
 
         <label class="field">
-          <span>Email</span>
-          <input type="email" name="email" required>
+          <span>Wedding Wishes </span>
+          <p class="field-desc">As we begin this beautiful new chapter together, your love, blessings, and kind words mean the world to us. We'd be grateful if you could leave us a heartfelt wish to cherish forever.</p>
+          <textarea name="wishes" rows="4"></textarea>
         </label>
 
-        <fieldset class="field field--radio">
-          <legend>Will you attend?</legend>
-          <label><input type="radio" name="attending" value="Joyfully Accepts" checked> Joyfully Accepts</label>
-          <label><input type="radio" name="attending" value="Regretfully Declines"> Regretfully Declines</label>
-        </fieldset>
-
-        <label class="field">
-          <span>Number of Guests</span>
-          <input type="number" name="guests" min="0" max="10" value="1">
-        </label>
-
-        <label class="field">
-          <span>Message (optional)</span>
-          <textarea name="message" rows="3"></textarea>
-        </label>
-
-        <button type="submit" class="submit-btn">Send Reply</button>
+        <button type="submit" class="submit-btn">Send </button>
       </form>
     </div>
   </section>
@@ -246,6 +227,30 @@
       <div class="monogram monogram--sm">A<span class="monogram-amp">&amp;</span>A</div>
       <p class="footer-note">With love, we can't wait to celebrate with you.</p>
       <p class="footer-date">23 &middot; 07 &middot; 2026</p>
+
+      <div class="rule"></div>
+
+      <div class="countdown" id="countdown" data-wedding="2026-07-23T18:00:00">
+        <div class="countdown-grid">
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdDays">00</span>
+            <span class="countdown-label">Days</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdHours">00</span>
+            <span class="countdown-label">Hours</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdMins">00</span>
+            <span class="countdown-label">Mins</span>
+          </div>
+          <div class="countdown-unit">
+            <span class="countdown-num" id="cdSecs">00</span>
+            <span class="countdown-label">Secs</span>
+          </div>
+        </div>
+        <p class="countdown-caption">until we say &ldquo;I do&rdquo; &mdash; kindly reply soon</p>
+      </div>
     </div>
   </footer>
 

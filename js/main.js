@@ -2,40 +2,24 @@
   "use strict";
 
   var overlay = document.getElementById("envelope-overlay");
-  var envelope = document.getElementById("envelope");
-  var envelopeBody = document.getElementById("envelopeBody");
   var seal = document.getElementById("waxSeal");
 
   document.body.classList.add("locked");
 
   function openInvitation() {
-    if (envelope.classList.contains("opening")) return;
+    if (overlay.classList.contains("opening")) return;
 
     seal.classList.add("breaking");
     seal.disabled = true;
+    overlay.classList.add("opening");
 
     setTimeout(function () {
-      envelope.classList.add("opening");
-      overlay.classList.add("opening");
-    }, 350);
-
-    var revealed = false;
-    function reveal() {
-      if (revealed) return;
-      revealed = true;
       overlay.classList.add("opened");
       document.body.classList.remove("locked");
-    }
-
-    // Reveal exactly when the envelope has actually finished sliding away,
-    // rather than guessing a fixed delay that can drift on slower devices.
-    envelopeBody.addEventListener("transitionend", function (e) {
-      if (e.propertyName === "transform") reveal();
-    });
-    setTimeout(reveal, 3200); // fallback in case transitionend never fires
+    }, 350);
   }
 
-  seal.addEventListener("click", openInvitation);
+  overlay.addEventListener("click", openInvitation);
 
   // Scroll-reveal for content sections
   var revealEls = document.querySelectorAll(".reveal");
@@ -156,5 +140,40 @@
       }, delay);
     }
     schedulePetal();
+  }
+
+  // ================= RSVP countdown =================
+  var countdown = document.getElementById("countdown");
+  if (countdown) {
+    var weddingDate = new Date(countdown.dataset.wedding).getTime();
+    var cdDays = document.getElementById("cdDays");
+    var cdHours = document.getElementById("cdHours");
+    var cdMins = document.getElementById("cdMins");
+    var cdSecs = document.getElementById("cdSecs");
+
+    function pad(n) { return String(n).padStart(2, "0"); }
+
+    function tickCountdown() {
+      var diff = weddingDate - Date.now();
+      if (diff <= 0) {
+        cdDays.textContent = "00";
+        cdHours.textContent = "00";
+        cdMins.textContent = "00";
+        cdSecs.textContent = "00";
+        clearInterval(countdownTimer);
+        return;
+      }
+      var days = Math.floor(diff / 86400000);
+      var hours = Math.floor((diff % 86400000) / 3600000);
+      var mins = Math.floor((diff % 3600000) / 60000);
+      var secs = Math.floor((diff % 60000) / 1000);
+      cdDays.textContent = pad(days);
+      cdHours.textContent = pad(hours);
+      cdMins.textContent = pad(mins);
+      cdSecs.textContent = pad(secs);
+    }
+
+    tickCountdown();
+    var countdownTimer = setInterval(tickCountdown, 1000);
   }
 })();
