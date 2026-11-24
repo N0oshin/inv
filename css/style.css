@@ -503,15 +503,25 @@ a { color: inherit; }
 
 .invitation-content { position: relative; z-index: 2; max-width: 460px; }
 
+.bismillah {
+  font-family: "Amiri", "Scheherazade New", "Traditional Arabic", serif;
+  font-size: clamp(1.25rem, 5.6vw, 2rem);
+  line-height: 1.8;
+  color: var(--gold-ink);
+  margin: 0 0 14px;
+  white-space: nowrap;
+}
+
 .script-names {
   font-family: var(--script);
   font-size: clamp(2rem, 6vw, 2.8rem);
   color: var(--gold-ink);
-  margin: 0 0 20px;
+  margin: 14px 0 12px;
 }
-.amp-small { color: var(--sage-deep); }
-/* Each half stays whole: if both don't fit on one line, the second name drops to its own line. */
-.name-part { display: inline-block; white-space: nowrap; }
+/* Stacked: first name, ampersand, second name — each on its own line. */
+.script-names { line-height: 1.15; }
+.script-names .name-part { display: block; white-space: nowrap; }
+.amp-small { display: block; font-size: 0.6em; color: var(--sage-deep); margin: 0.05em 0; }
 
 .date-line { margin: 4px 0; }
 .date-num {
@@ -554,6 +564,7 @@ a { color: inherit; }
   padding-top:15vh;
   padding-bottom: 3vh;
 }
+.scene.scene--venue { padding-bottom: 3vh; }
 .venue-content { position: relative; z-index: 2; max-width: 440px; }
 .building-motif {
   width: 220px;
@@ -651,7 +662,13 @@ a { color: inherit; }
 /* =========================================================
    RSVP
    ========================================================= */
-.scene--rsvp { background: var(--cream); }
+.scene.scene--rsvp {
+  background: var(--cream);
+  min-height: auto;
+  padding-top: 5vh;
+  padding-bottom: 10vh;
+}
+.scene--rsvp .rsvp-form { margin-top: 0; }
 .rsvp-content { position: relative; z-index: 2; max-width: 420px; width: 100%; }
 .rsvp-title {
   font-family: var(--serif);
