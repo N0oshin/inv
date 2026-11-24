@@ -279,6 +279,9 @@ a { color: inherit; }
   left: 50%;
   bottom: 8%;
   transform: translateX(-50%);
+  margin: 0;
+  white-space: nowrap;
+  text-align: center;
   z-index: 10;
   font-family: var(--caps);
   font-size: 0.7rem;
@@ -353,7 +356,7 @@ a { color: inherit; }
 .scene--hero {
   background: var(--ivory);
   justify-content: flex-start;
-  align-items: flex-start;
+  align-items: center;
   padding-top: 9vh;
   padding-left: calc(8vw + 78px);
   padding-right: calc(8vw + 78px);
@@ -378,8 +381,8 @@ a { color: inherit; }
 .hero-content {
   position: relative;
   z-index: 2;
-  max-width: 58vw;
-  text-align: left;
+  max-width: 100%;
+  text-align: center;
 }
 
 .monogram {
@@ -402,11 +405,12 @@ a { color: inherit; }
   line-height: 1.15;
   text-shadow: 0 2px 18px rgba(255,251,242,0.75);
 }
+/* One line when it fits; otherwise the second name drops to its own line. */
+.names .name-part { display: inline-block; white-space: nowrap; }
 .names .amp {
-  display: block;
-  font-size: 0.5em;
+  font-size: 0.7em;
   color: var(--sage-deep);
-  margin: -0.1em 0;
+  margin: 0 0.15em;
 }
 
 .request-line {
@@ -445,6 +449,19 @@ a { color: inherit; }
   font-size: 0.8rem;
   letter-spacing: 0.2em;
   color: var(--ink-soft);
+}
+
+.date-time {
+  font-family: var(--caps);
+  font-size: 0.8rem;
+  letter-spacing: 0.2em;
+  color: var(--gold-ink);
+  margin-top: 8px;
+  padding-top: 8px;
+  border-top: 1px solid rgba(161,121,60,0.4);
+  align-self: stretch;
+  text-align: center;
+  white-space: nowrap;
 }
 
 .scroll-cue {
@@ -493,6 +510,8 @@ a { color: inherit; }
   margin: 0 0 20px;
 }
 .amp-small { color: var(--sage-deep); }
+/* Each half stays whole: if both don't fit on one line, the second name drops to its own line. */
+.name-part { display: inline-block; white-space: nowrap; }
 
 .date-line { margin: 4px 0; }
 .date-num {
@@ -800,9 +819,30 @@ a { color: inherit; }
   .countdown-unit { min-width: 40px; padding: 7px 3px; border-radius: 8px; }
 }
 
+@media (max-width: 340px) {
+  .countdown-grid { gap: 4px; }
+  .countdown-unit { min-width: 34px; padding: 7px 2px; }
+  .countdown-label { font-size: 0.44rem; letter-spacing: 0.08em; }
+}
+
 /* =========================================================
    RESPONSIVE
    ========================================================= */
+/* Phones: the garden borders are 64px wide, so keep text just clear of them
+   instead of the wider desktop gutters, and size long lines to the column. */
+@media (max-width: 699px) {
+  .scene { padding-left: calc(4vw + 68px); padding-right: calc(4vw + 68px); }
+  .scene--hero { padding-left: calc(2vw + 70px); padding-right: calc(2vw + 70px); }
+  .eyebrow { letter-spacing: 0.22em; }
+  .date-box { padding: 12px 16px; }
+  .script-names { font-size: clamp(1.5rem, 7vw, 2.8rem); }
+  .date-sub {
+    display: block;
+    white-space: nowrap;
+    font-size: clamp(0.5rem, 2.6vw, 0.68rem);
+    letter-spacing: 0.15em;
+  }
+}
 @media (min-width: 700px) {
   .scene { padding: 10vh calc(8vw + 150px); }
   .scene--hero { padding-left: calc(8vw + 150px); padding-right: calc(8vw + 150px); }
