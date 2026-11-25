@@ -537,6 +537,8 @@ a { color: inherit; }
   line-height: 1;
 }
 .date-sub {
+  display: inline-block;
+  padding: 4px;
   font-family: var(--caps);
   font-size: 0.68rem;
   letter-spacing: 0.25em;
