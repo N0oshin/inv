@@ -490,6 +490,11 @@ a { color: inherit; }
 .scene--invitation {
   background: linear-gradient(270deg, var(--ivory) 0%, var(--champagne) 100%);
 }
+.scene.scene--invitation {
+  min-height: auto;
+  padding-top: 10vh;
+  padding-bottom: 4vh;
+}
 .pillar {
   position: absolute;
   top: 0;
@@ -564,7 +569,7 @@ a { color: inherit; }
   padding-top:15vh;
   padding-bottom: 3vh;
 }
-.scene.scene--venue { padding-bottom: 3vh; }
+.scene.scene--venue { padding-top: 4vh; padding-bottom: 3vh; }
 .venue-content { position: relative; z-index: 2; max-width: 440px; }
 .building-motif {
   width: 220px;
