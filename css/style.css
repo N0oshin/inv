@@ -521,14 +521,14 @@ a { color: inherit; }
   font-family: var(--script);
   font-size: clamp(2rem, 6vw, 2.8rem);
   color: var(--gold-ink);
-  margin: 14px 0 12px;
+  margin: 14px 0 2px;
 }
 /* Stacked: first name, ampersand, second name — each on its own line. */
 .script-names { line-height: 1.15; }
 .script-names .name-part { display: block; white-space: nowrap; }
 .amp-small { display: block; font-size: 0.6em; color: var(--sage-deep); margin: 0.05em 0; }
 
-.date-line { margin: 4px 0; }
+.date-line { margin: 0 0 4px; }
 .date-num {
   display: block;
   font-family: var(--serif);
@@ -550,6 +550,9 @@ a { color: inherit; }
   margin: 4px 0 10px;
 }
 .venue-script--lg { font-size: clamp(1.9rem, 5vw, 2.6rem); }
+/* Invitation: keep the time tucked close under the venue name. */
+.invitation-content .venue-script { margin-bottom: 0; }
+.invitation-content .venue-script + .body-copy { line-height: 1.4; }
 
 .terrace-scene {
   position: absolute;
@@ -718,8 +721,9 @@ a { color: inherit; }
   font-size: 0.85rem;
   line-height: 1.6;
   color: var(--ink-soft);
-  margin: 0 0 2px;
+  margin: 0;
 }
+.field-desc + textarea { padding-top: 2px; margin-top: -4px; }
 .field input[type="text"],
 .field input[type="email"],
 .field input[type="number"],
