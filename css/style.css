@@ -357,7 +357,8 @@ a { color: inherit; }
   background: var(--ivory);
   justify-content: flex-start;
   align-items: center;
-  padding-top: 9vh;
+  min-height: 90vh;
+  padding-top: 6vh;
   padding-left: calc(8vw + 78px);
   padding-right: calc(8vw + 78px);
 }
@@ -574,7 +575,7 @@ a { color: inherit; }
   padding-top:15vh;
   padding-bottom: 3vh;
 }
-.scene.scene--venue { padding-top: 4vh; padding-bottom: 3vh; }
+.scene.scene--venue { padding-top: 4vh; padding-bottom: 1vh; }
 .venue-content { position: relative; z-index: 2; max-width: 440px; }
 .building-motif {
   width: 220px;
@@ -675,7 +676,7 @@ a { color: inherit; }
 .scene.scene--rsvp {
   background: var(--cream);
   min-height: auto;
-  padding-top: 5vh;
+  padding-top: 2vh;
   padding-bottom: 10vh;
 }
 .scene--rsvp .rsvp-form { margin-top: 0; }
