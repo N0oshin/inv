@@ -24,9 +24,69 @@
         console.warn("Audio playback failed:", err);
       });
     }
+
+    setTimeout(startAutoScroll, AUTO_SCROLL_START_DELAY);
   }
 
   overlay.addEventListener("click", openInvitation);
+
+  // ================= Auto-scroll: glide down the invitation once opened =================
+  var AUTO_SCROLL_START_DELAY = 2200; // ms after the seal is tapped
+  var AUTO_SCROLL_SPEED = 55;         // px per second
+  var AUTO_SCROLL_RESUME_DELAY = 4000; // ms of no touch/scroll input before resuming
+
+  var autoScroll = { started: false, done: false, paused: false, pos: 0, lastTime: 0, resumeTimer: null };
+
+  function maxScrollTop() {
+    return document.documentElement.scrollHeight - window.innerHeight;
+  }
+
+  function autoScrollStep(now) {
+    if (autoScroll.done) return;
+    if (!autoScroll.paused) {
+      var dt = Math.min(now - autoScroll.lastTime, 100);
+      autoScroll.pos += (AUTO_SCROLL_SPEED * dt) / 1000;
+      var max = maxScrollTop();
+      if (autoScroll.pos >= max) {
+        autoScroll.pos = max;
+        autoScroll.done = true;
+      }
+      window.scrollTo({ top: autoScroll.pos, left: 0, behavior: "instant" });
+    }
+    autoScroll.lastTime = now;
+    if (!autoScroll.done) requestAnimationFrame(autoScrollStep);
+  }
+
+  function isTypingInForm() {
+    var el = document.activeElement;
+    return !!el && (el.tagName === "TEXTAREA" || el.tagName === "INPUT");
+  }
+
+  function pauseAutoScroll() {
+    if (!autoScroll.started || autoScroll.done) return;
+    autoScroll.paused = true;
+    clearTimeout(autoScroll.resumeTimer);
+    autoScroll.resumeTimer = setTimeout(function () {
+      if (isTypingInForm()) return; // stay put while a guest writes a wish
+      autoScroll.pos = window.pageYOffset || document.documentElement.scrollTop;
+      autoScroll.paused = false;
+    }, AUTO_SCROLL_RESUME_DELAY);
+  }
+
+  function startAutoScroll() {
+    if (autoScroll.started) return;
+    if (window.matchMedia && window.matchMedia("(prefers-reduced-motion: reduce)").matches) return;
+    autoScroll.started = true;
+    autoScroll.pos = window.pageYOffset || document.documentElement.scrollTop;
+    autoScroll.lastTime = performance.now();
+
+    ["wheel", "touchstart", "touchmove", "mousedown", "keydown"].forEach(function (type) {
+      window.addEventListener(type, pauseAutoScroll, { passive: true });
+    });
+    document.addEventListener("focusin", pauseAutoScroll);
+
+    requestAnimationFrame(autoScrollStep);
+  }
 
   // ================= RSVP form: submit without leaving the page =================
   var rsvpForm = document.getElementById("rsvpForm");
