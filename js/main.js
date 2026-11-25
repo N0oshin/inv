@@ -91,6 +91,15 @@
   // ================= RSVP form: submit without leaving the page =================
   var rsvpForm = document.getElementById("rsvpForm");
   if (rsvpForm) {
+    // The wishes box starts one line tall and grows as the guest types.
+    var wishesBox = rsvpForm.querySelector("textarea");
+    if (wishesBox) {
+      wishesBox.addEventListener("input", function () {
+        wishesBox.style.height = "auto";
+        wishesBox.style.height = wishesBox.scrollHeight + 1 + "px";
+      });
+    }
+
     rsvpForm.addEventListener("submit", function (e) {
       e.preventDefault();
 
