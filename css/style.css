@@ -677,7 +677,7 @@ a { color: inherit; }
   background: var(--cream);
   min-height: auto;
   padding-top: 2vh;
-  padding-bottom: 10vh;
+  padding-bottom: 4vh;
 }
 .scene--rsvp .rsvp-form { margin-top: 0; }
 .rsvp-content { position: relative; z-index: 2; max-width: 420px; width: 100%; }
